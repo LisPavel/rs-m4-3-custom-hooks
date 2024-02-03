@@ -21,6 +21,7 @@ export function useLocalStorage<T>(
   T | undefined,
   {
     setItem: (newValue: T) => void;
+    removeItem: () => void;
   },
 ] {
   const [value, setValue] = useState<T | undefined>(() =>
@@ -35,5 +36,10 @@ export function useLocalStorage<T>(
     [key],
   );
 
-  return [value, { setItem }];
+  const removeItem = useCallback(() => {
+    localStorage.removeItem(key);
+    setValue(undefined);
+  }, [key]);
+
+  return [value, { setItem, removeItem }];
 }
