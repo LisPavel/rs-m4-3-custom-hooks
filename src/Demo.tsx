@@ -1,7 +1,14 @@
 import { useFetch } from "./useFetch";
 
+interface Post {
+  body: string;
+  id: number;
+  title: string;
+  userId: number;
+}
+
 export function Demo() {
-  const { data, isLoading, /* error, refetch  */} = useFetch<any[]>(
+  const { data, isLoading /* error, refetch  */ } = useFetch<Post[]>(
     "https://jsonplaceholder.typicode.com/posts"
   );
 
