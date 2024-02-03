@@ -1,3 +1,4 @@
+import React from "react";
 import { useFetch } from "./useFetch";
 
 interface Post {
@@ -8,24 +9,26 @@ interface Post {
 }
 
 export function Demo() {
-  const { data, isLoading , error,/* refetch  */ } = useFetch<Post[]>(
-    "https://jsonplaceholder.typicode.com/posts"
+  const { data, isLoading, error, refetch } = useFetch<Post[]>(
+    "https://jsonplaceholder.typicode.com/posts",
   );
 
   return (
     <div>
       <div>
-        {/* <button
-          onClick={() =>
-            refetch({
-              params: {
-                _limit: 3,
-              },
-            })
-          }
-        >
-          Перезапросить
-        </button> */}
+        {
+          <button
+            onClick={() =>
+              refetch({
+                params: {
+                  _limit: 3,
+                },
+              })
+            }
+          >
+            Перезапросить
+          </button>
+        }
       </div>
       {isLoading && "Загрузка..."}
       {error && "Произошла ошибка"}

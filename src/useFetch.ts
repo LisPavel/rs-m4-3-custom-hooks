@@ -1,16 +1,25 @@
-import axios, { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
+import { useCallback, useEffect, useState } from "react";
 
-export function useFetch<T>(url: string) {
+type FetchCallback = (
+  requestParams?: Pick<AxiosRequestConfig, "params">
+) => Promise<void>;
+
+export function useFetch<T>(url: string): {
+  data: T | null;
+  error: AxiosError | null;
+  isLoading: boolean;
+  refetch: FetchCallback;
+} {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<AxiosError | null>(null);
 
-  useEffect((): void => {
-    const fetchData = async (): Promise<void> => {
+  const fetchData = useCallback<FetchCallback>(
+    async (config?: AxiosRequestConfig): Promise<void> => {
       setIsLoading(true);
       try {
-        const result = await axios.get<T>(url);
+        const result = await axios.get<T>(url, config);
         if (result.status === 200) {
           setData(result.data);
         }
@@ -19,9 +28,13 @@ export function useFetch<T>(url: string) {
       } finally {
         setIsLoading(false);
       }
-    };
-    fetchData();
-  }, [url]);
+    },
+    [url]
+  );
 
-  return { data, isLoading, error };
+  useEffect((): void => {
+    fetchData();
+  }, [fetchData]);
+
+  return { data, isLoading, error, refetch: fetchData };
 }
