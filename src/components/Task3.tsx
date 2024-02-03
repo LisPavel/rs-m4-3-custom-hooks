@@ -1,7 +1,7 @@
 import React from "react";
 import { useHover } from "../hooks/useHover";
 
-function Demo() {
+export function Task3() {
   const { hovered, ref } = useHover<HTMLDivElement>();
 
   return (
