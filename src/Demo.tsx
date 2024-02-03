@@ -8,7 +8,7 @@ interface Post {
 }
 
 export function Demo() {
-  const { data, isLoading /* error, refetch  */ } = useFetch<Post[]>(
+  const { data, isLoading , error,/* refetch  */ } = useFetch<Post[]>(
     "https://jsonplaceholder.typicode.com/posts"
   );
 
@@ -28,7 +28,7 @@ export function Demo() {
         </button> */}
       </div>
       {isLoading && "Загрузка..."}
-      {/* {error && "Произошла ошибка"} */}
+      {error && "Произошла ошибка"}
       {data &&
         !isLoading &&
         data.map((item) => <div key={item.id}>{item.title}</div>)}
