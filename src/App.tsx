@@ -1,8 +1,11 @@
-import React from 'react';
+import React from "react";
+import { Task3 } from "./components/Task3";
 
 function App() {
   return (
-    <div className="App"><h1>Hello world</h1></div>
+    <div className="App">
+      <Task3 />
+    </div>
   );
 }
 
