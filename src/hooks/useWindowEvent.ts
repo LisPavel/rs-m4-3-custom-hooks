@@ -3,7 +3,7 @@ import { useEffect } from "react";
 export function useWindowEvent(
   type: keyof WindowEventMap,
   listener: EventListenerOrEventListenerObject,
-  options: AddEventListenerOptions,
+  options?: AddEventListenerOptions,
 ) {
   useEffect(() => {
     if (typeof window !== "undefined") {
