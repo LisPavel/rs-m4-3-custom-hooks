@@ -1,8 +1,11 @@
-import React from 'react';
+import React from "react";
+import { AdditionalTask2 } from "./components/additional/Task2";
 
 function App() {
   return (
-    <div className="App"><h1>Hello world</h1></div>
+    <div className="App">
+      <AdditionalTask2 />
+    </div>
   );
 }
 
